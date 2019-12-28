@@ -1,0 +1,46 @@
+.amount-form {
+	$white: #fff;
+
+	.amount {
+		font-weight: 700;
+		background-color: #2bbed3;
+		font-size: 1.5em;
+		margin: 0 auto;
+		width: 8em;
+		padding: 8px 0 8px 0;
+		font-size: 1.5em;
+		color: $white;
+	}
+
+	.numpad {
+		font-size: 1.5em;
+		width: 7.5em;
+		margin: 0 auto;
+	}
+
+	button {
+		border: 0.03em solid $white;
+		background-color: #2bbed3;
+		color: $white;
+		float: left;
+		cursor: pointer;
+		font: inherit;
+		width: 2em;
+		height: 2em;
+		border-radius: 50%;
+		margin: 0.25em;
+
+		&:hover {
+			background-color: $white;
+			color: #2bbed3;
+		}
+	}
+
+	.submit-btn {
+		width: 60%;
+		padding: 0.3em 1.5em;
+		border-radius: 1em;
+		margin: 1em 0 0 0;
+		font-weight: bold;
+	}
+}
