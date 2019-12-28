@@ -4,12 +4,12 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 import './styles.scss';
 
-export default function Withdrawal() {
+const Withdrawal: React.FC = () => {
 	return (
 		<Formik
 			initialValues={{ amount: '' }}
 			validate={values => {
-				const errors = {};
+				const errors = { amount: '' };
 
 				if (!values.amount) {
 					errors.amount = 'Required';
@@ -23,9 +23,10 @@ export default function Withdrawal() {
 				}, 400);
 			}}
 		>
-			{({ isSubmitting }) => (
+			{props => (
 				<Form className='amount-form'>
 					<h2>Select amount</h2>
+					<p>{JSON.stringify(props)}</p>
 					<Field type='number' name='amount' className='amount' />
 					<button className='clear-one'>
 						<FaArrowLeft />
@@ -35,16 +36,24 @@ export default function Withdrawal() {
 							<NumPadBtn key={i} dataNumber={n.num} />
 						))}
 					</div>
-					<button className='submit-btn' type='submit' disabled={isSubmitting}>
+					<button
+						className='submit-btn'
+						type='submit'
+						disabled={props.isSubmitting}
+					>
 						submit
 					</button>
 				</Form>
 			)}
 		</Formik>
 	);
+};
+
+interface INumPadBtn {
+	dataNumber: number;
 }
 
-const NumPadBtn = ({ dataNumber }) => (
+const NumPadBtn: React.FC<INumPadBtn> = ({ dataNumber }) => (
 	<button className='number' data-number={dataNumber}>
 		{dataNumber}
 	</button>
@@ -62,3 +71,5 @@ const numbers = [
 	{ num: 9 },
 	{ num: 0 }
 ];
+
+export default Withdrawal;
