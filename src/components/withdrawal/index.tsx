@@ -8,39 +8,39 @@ const Withdrawal: React.FC = () => {
 	return (
 		<Formik
 			initialValues={{ amount: '' }}
-			validate={values => {
-				const errors = { amount: '' };
-
-				if (!values.amount) {
-					errors.amount = 'Required';
-				}
-				return errors;
-			}}
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 1));
 					setSubmitting(false);
-				}, 400);
+				}, 500);
 			}}
 		>
 			{props => (
-				<Form className='amount-form'>
+				<Form className='amount-form' onSubmit={props.handleSubmit}>
 					<h2>Select amount</h2>
-					<p>{JSON.stringify(props)}</p>
-					<Field type='number' name='amount' className='amount' />
-					<button className='clear-one'>
+					{/* <p>{JSON.stringify(props)}</p> */}
+					<Field
+						type='number'
+						name='amount'
+						className='amount'
+						placeholder='set amount'
+						onChange={props.handleChange}
+					/>
+					<button type='button' className='clear-one'>
 						<FaArrowLeft />
 					</button>
 					<div className='numpad'>
 						{numbers.map((n, i) => (
-							<NumPadBtn key={i} dataNumber={n.num} />
+							<NumPadBtn
+								onClick={() => (props.values.amount += n.num)}
+								key={i}
+								dataNumber={n.num}
+							/>
 						))}
 					</div>
-					<button
-						className='submit-btn'
-						type='submit'
-						disabled={props.isSubmitting}
-					>
+					{/* {props.errors.amount && <div id='errors'>{props.errors.amount}</div>} */}
+
+					<button className='submit-btn' type='submit'>
 						submit
 					</button>
 				</Form>
@@ -51,10 +51,16 @@ const Withdrawal: React.FC = () => {
 
 interface INumPadBtn {
 	dataNumber: number;
+	onClick: () => void;
 }
 
-const NumPadBtn: React.FC<INumPadBtn> = ({ dataNumber }) => (
-	<button className='number' data-number={dataNumber}>
+const NumPadBtn: React.FC<INumPadBtn> = ({ dataNumber, onClick }) => (
+	<button
+		type='button'
+		className={dataNumber ? `number-${dataNumber}` : 'zero'}
+		data-number={dataNumber}
+		onClick={onClick}
+	>
 		{dataNumber}
 	</button>
 );
