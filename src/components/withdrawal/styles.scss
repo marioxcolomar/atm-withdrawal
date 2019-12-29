@@ -18,7 +18,7 @@
 	.numpad {
 		font-size: 40px;
 		width: 7.5em;
-		margin: 0 auto;
+		margin: 15px auto 0;
 		height: 450px;
 		display: flex;
 		flex-wrap: wrap;
@@ -45,6 +45,8 @@
 
 	.clear-one {
 		float: right;
+		width: 2.5em;
+		height: 2.5em;
 	}
 
 	.submit-btn {
