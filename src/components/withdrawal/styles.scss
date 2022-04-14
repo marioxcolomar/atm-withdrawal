@@ -6,7 +6,7 @@
 		background-color: #2bbed3;
 		font-size: 1.5em;
 		margin: 0 auto 15px 0;
-		width: 6em;
+		width: 8em;
 		padding: 8px 0 8px 0;
 		font-size: 1.5em;
 		color: $white;
@@ -47,13 +47,20 @@
 		float: right;
 		width: 2.5em;
 		height: 2.5em;
+		margin: auto;
 	}
 
-	.submit-btn {
-		width: 60%;
-		padding: 0.3em 1.5em;
-		border-radius: 1em;
-		margin: 1em 0 0 0;
-		font-weight: bold;
+	.actions {
+		display: flex;
+		justify-content: center;
+
+		.submit-btn {
+			width: 60%;
+			padding: 0.3em 1.5em;
+			border-radius: 1em;
+			margin: 1em 0 0 0;
+			font-weight: bold;
+		}
 	}
+
 }

@@ -1,81 +1,93 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import { FaArrowLeft } from 'react-icons/fa';
+import React from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
-import './styles.scss';
+import "./styles.scss";
 
 const Withdrawal: React.FC = () => {
-	return (
-		<Formik
-			initialValues={{ amount: '' }}
-			onSubmit={(values, { setSubmitting }) => {
-				setTimeout(() => {
-					alert(JSON.stringify(values, null, 1));
-					setSubmitting(false);
-				}, 500);
-			}}
-		>
-			{props => (
-				<Form className='amount-form' onSubmit={props.handleSubmit}>
-					<h2>Select amount</h2>
-					{/* <p>{JSON.stringify(props)}</p> */}
-					<Field
-						type='number'
-						name='amount'
-						className='amount'
-						placeholder='set amount'
-						onChange={props.handleChange}
-					/>
-					<button type='button' className='clear-one'>
-						<FaArrowLeft />
-					</button>
-					<div className='numpad'>
-						{numbers.map((n, i) => (
-							<NumPadBtn
-								onClick={() => (props.values.amount += n.num)}
-								key={i}
-								dataNumber={n.num}
-							/>
-						))}
-					</div>
-					{/* {props.errors.amount && <div id='errors'>{props.errors.amount}</div>} */}
+  const [amount, setAmount] = React.useState("");
 
-					<button className='submit-btn' type='submit'>
-						submit
-					</button>
-				</Form>
-			)}
-		</Formik>
-	);
+  const handleSubmit = () => {
+    console.log("amount at submit", amount);
+    setTimeout(() => {
+      alert(JSON.stringify(amount, null, 1));
+    }, 500);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="amount-form">
+        <h2>Amount to Withdrawal</h2>
+        <input
+          type="text"
+          name="amount"
+          className="amount"
+          placeholder="set amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          autoComplete="off"
+        />
+        <button
+          type="button"
+          className="clear-one"
+          onClick={() => setAmount("")}
+        >
+          <FaArrowLeft size={28} />
+        </button>
+        <div className="numpad">
+          {numbers.map((n, i) => {
+            let newValue = amount;
+            return (
+              <NumPadBtn
+                onClick={() => setAmount((newValue += n.num))}
+                key={i}
+                dataNumber={n.num}
+              />
+            );
+          })}
+        </div>
+
+        <div className="actions">
+          <button
+            className="submit-btn"
+            type="submit"
+            disabled={amount === ""}
+            onClick={handleSubmit}
+          >
+            submit
+          </button>
+        </div>
+      </div>
+    </form>
+  );
 };
 
 interface INumPadBtn {
-	dataNumber: number;
-	onClick: () => void;
+  dataNumber?: number;
+  onClick: () => void;
 }
 
-const NumPadBtn: React.FC<INumPadBtn> = ({ dataNumber, onClick }) => (
-	<button
-		type='button'
-		className={dataNumber ? `number-${dataNumber}` : 'zero'}
-		data-number={dataNumber}
-		onClick={onClick}
-	>
-		{dataNumber}
-	</button>
+const NumPadBtn: React.FC<INumPadBtn> = ({ dataNumber, onClick, children }) => (
+  <button
+    type="button"
+    className={dataNumber ? `number-${dataNumber}` : "zero"}
+    data-number={dataNumber}
+    onClick={onClick}
+  >
+    {children ? children : dataNumber}
+  </button>
 );
 
 const numbers = [
-	{ num: 1 },
-	{ num: 2 },
-	{ num: 3 },
-	{ num: 4 },
-	{ num: 5 },
-	{ num: 6 },
-	{ num: 7 },
-	{ num: 8 },
-	{ num: 9 },
-	{ num: 0 }
+  { num: 1 },
+  { num: 2 },
+  { num: 3 },
+  { num: 4 },
+  { num: 5 },
+  { num: 6 },
+  { num: 7 },
+  { num: 8 },
+  { num: 9 },
+  { num: 0 },
 ];
 
 export default Withdrawal;
